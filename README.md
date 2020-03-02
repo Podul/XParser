@@ -2,16 +2,35 @@
 基于libxml2 的 html 解析
 
 ## Usage
-1.创建`Document`
+1. 创建`Document`
 ```swift
 let doc = Document("path")
 ```
-2.使用`XPath`语法进行查找
+2. 查找，可使用`XPath`语法
 ```swift
-doc["//title"].node?.name
-doc["//title"].node?.content
-doc["//meta[@name='generator']"].node?.propertry("content")
-doc["//div/div/h2/span[@id='Welcome_to_the_iPhone_Wiki']"].node?.content
+// 标签名
+doc.title()?.name
+
+// 内容
+doc.title()?.content
+doc.div.div.h2.span["@id='Welcome_to_the_iPhone_Wiki'"]?.content
+
+// 使用 XPath 方式
+doc.meta(custom: "[@name='generator']")?.get("content")
+
+// 获取属性
+doc.meta[custom: "[@name='generator']"]?.get("content")
+doc.meta["@name='generator'"]?.get("content")
+doc.html.head.link(["rel": "search", "type": "application/opensearchdescription+xml"])?.get("title")
+
+// 获取当前标签所有属性
+doc.html()?.attributes
+
+// 获取当前节点的所有子节点
+doc.html()?.children
+
+// 获取当前节点的4个兄弟节点
+doc.html.head()?.child?[4]
 ```
 不了解`XPath`的可以前往[w3school](https://www.w3school.com.cn/xpath/index.asp)学习了解.
 
@@ -36,4 +55,4 @@ Podul, ylpodul@gmail.com
 
 ## License
 
-PropertyDecoder is available under the MIT license. See the LICENSE file for more info.
+XParser is available under the MIT license. See the LICENSE file for more info.

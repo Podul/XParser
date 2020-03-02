@@ -11,6 +11,6 @@ import Foundation
 
 extension String {
     var prt: [xmlChar]! {
-        cString(using: .ascii)?.map { xmlChar($0) }
+        cString(using: .utf8)?.map { xmlChar($0) }
     }
 }
